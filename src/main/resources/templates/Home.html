@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar bg-dark" style="height:75px;">
+<!--        <input type="text" placeholder="Search.." style="height:33px; width: 40vw; margin: 0 auto;">-->
+<!--&lt;!&ndash;        This is dysfunctional &ndash;&gt;-->
+<!--        <button class="btn btn-lg" style="position:absolute; right: 30vw; font-size: 15px; margin: 0px; padding: 4px 10px;"> <i class="fa fa-search" aria-hidden="true"> </i> </button>-->
+    </nav>
+
+    <div style="width: 70vw; margin: 0 auto; padding-top: 50px;">
+        <div style="font: 40px 'Century Gothic';">
+            <td th:text="${product.name}"> </td>
+        </div>
+
+        <div style="text-align: center">
+            <td class="img-fluid" style="text-align: center; margin: 0 auto;"> <img th:src="${product.imagePath}" height="240"> </td>
+        </div>
+
+        <div class="lead" style="font-size: 30px;">
+            Rp <td th:text="${product.price}"> </td>
+        </div>
+
+        <div style="font-size: 30px;">
+            <i> <td th:text="${product.material}"> </td> </i>
+        </div>
+
+        <table class="table table-info">
+            <th>
+                <td> Length </td>
+                <td> Width </td>
+                <td> Height </td>
+            </th>
+
+            <tr>
+                <td> </td>
+                <td th:text="${product.dimension.length}" />
+                <td th:text="${product.dimension.width}" />
+                <td th:text="${product.dimension.height}" />
+            </tr>
+        </table>
+
+        <div class="form-group blu-margin" style="width: 200px;">
+            <select class="form-control" th:field="${product.color}"  id="dropColor">
+                <option value="0">choose color</option>
+                <option th:each="color : ${product.color}" th:value="1" th:text="${color}"></option>
+            </select>
+        </div>
+        <br>
+
+        <div>
+            <div th:if="${product.stock <= 0}"> <button type="button" class="btn btn-secondary btn-lg" disabled> Sold Out </button> </div>
+            <div th:unless="${product.stock <= 0}"> <button type="button" class="btn btn-lg btn-primary" disabled> Purchase </button> </div>
+        </div>
+    </div>
+
+    <div style="width: 70vw; margin: 0 auto; padding-top: 50px;">
+        <p> Related product</p>
+        <div style="font-size: 25px;">
+            <a th:href="@{${similarProduct.id}}">
+                <td th:text="${similarProduct.name}"> </td>
+            </a>
+        </div>
+        <br>
+        <td class="img-fluid"> <img th:src="${similarProduct.imagePath}" height="180"> </td>
+        <br>
+        <div class="lead" style="font-size: 22px;">
+            Rp <td th:text="${similarProduct.price}"> </td>
+        </div>
+    </div>
+
+    <footer style="padding-top: 30px; margin-top: 50px; height: 100px; text-align: center; background-color: #343a40; color: #cce5ff;">
+        © Sydney Aldo 2020
+    </footer>
+</body>
+</html>
